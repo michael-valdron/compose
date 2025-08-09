@@ -1,0 +1,18 @@
+# Ignore .env files
+*.env
+
+# Ignore Secrets
+secrets.yaml
+secrets.yml
+
+# Ignore keys & certs
+*.key
+*.crt
+*.pem
+
+# Ignore .local
+*.local
+*.local.*
+
+# Ignore vscode config
+.vscode

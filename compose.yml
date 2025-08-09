@@ -1,0 +1,15 @@
+name: myservices
+services:
+  ssh:
+    image: lscr.io/linuxserver/openssh-server:version-10.0_p1-r7@sha256:cb432b4720788ee7a4c87c9aab8b79d23337380ede62479cf1e831bb1b2f6f9a
+    pull_policy: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - PASSWORD_ACCESS=false
+      - SUDO_ACCESS=false
+      - USER_NAME=${SSH_USERNAME:-sshuser}
+    ports:
+      - 2222:2222
+    restart: unless-stopped
