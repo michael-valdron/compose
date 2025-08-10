@@ -40,3 +40,31 @@ jobs:
       - name: Stop Docker Compose services
         if: always()
         run: docker compose down -v
+  podman-compose-config:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Set up Podman
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y podman python3-pip
+          pip3 install podman-compose
+      - name: Validate Podman Compose configuration
+        run: podman-compose -f compose.yml config
+  podman-compose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Set up Podman
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y podman python3-pip
+          pip3 install podman-compose
+      - name: Run Podman Compose
+        run: podman-compose up -d
+        continue-on-error: true
+      - name: Stop Podman Compose services
+        if: always()
+        run: podman-compose down -v
