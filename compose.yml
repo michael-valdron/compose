@@ -1,7 +1,7 @@
 name: myservices
 services:
   ssh:
-    image: lscr.io/linuxserver/openssh-server:version-10.0_p1-r7@sha256:a62814f26117688c8e82ea216bff2e1d38e1e97f0623b2f3af579cf6cb0163cb
+    image: lscr.io/linuxserver/openssh-server:version-10.0_p1-r7@sha256:d32caf5bd3bc68bad4a30716638929e345d015cc0cfe6692a3f99015c288e23b
     pull_policy: always
     environment:
       - PUID=${COMPOSE_PUID:-1000}
