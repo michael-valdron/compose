@@ -21,7 +21,7 @@ services:
     user: "${UID:-1000}:${GID:-1000}"
     working_dir: /config
   renovate:
-    image: docker.io/renovate/renovate:41.82@sha256:294e10a5dc036543cd99f0aad7043c29c86ec27a470a7779a902e96169f8a656
+    image: docker.io/renovate/renovate:41.118@sha256:f56c8cea853515ed24938d69f157b507cdb4306a050196ee4ca67cfbd502c059
     pull_policy: always
     environment:
       - RENOVATE_AUTODISCOVER=${RENOVATE_AUTODISCOVER:-false}
