@@ -29,3 +29,9 @@ services:
       - path: ${COMPOSE_ENV_PATH}
         required: false
     user: "${UID:-1000}:${GID:-1000}"
+  searxng:
+    image: docker.io/searxng/searxng:2025.11.24-5fcee9bc3@sha256:4cf7a26323427642f28a9f98f342b3ac91d356d7de0828ad2646f60647919ed4
+    pull_policy: always
+    restart: unless-stopped
+    ports:
+      - 8888:8080
