@@ -15,6 +15,12 @@
             "matchUpdateTypes": ["major"],
             "matchBaseBranches": "main",
             "enabled": false
+        },
+        {
+            "matchUpdateTypes": ["digest"],
+            "matchBaseBranches": "main",
+            "matchManagers": ["docker-compose"],
+            "enabled": false
         }
     ]
 }
