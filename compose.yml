@@ -35,3 +35,12 @@ services:
     restart: unless-stopped
     ports:
       - 8888:8080
+  nodejs:
+    image: quay.io/michaelvaldron/node-dev:v0.1.0@sha256:91ab754ac5bf6b5715e26b4c3ab2f9a3a7175bee28a109c5c63f844cc8f8718b
+    pull_policy: always
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+      - 9229:9229
+    volumes:
+      - ${PWD}:/project:Z
