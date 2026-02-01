@@ -72,3 +72,19 @@ services:
     volumes:
       - ${PWD}:/go/src:Z
     working_dir: /go/src
+  clj:
+    image: docker.io/library/clojure:temurin-25-tools-deps-1.12.4.1602-alpine@sha256:a5e473efbe877b07ecf6eed72337ba105fd4911aa65cb6e9b33c9a28f942a146
+    pull_policy: always
+    user: "${UID:-1000}:${GID:-1000}"
+    userns_mode: keep-id
+    volumes:
+      - ${PWD}:/usr/src/app:Z
+    working_dir: /usr/src/app
+  clj-lein:
+    image: docker.io/library/clojure:temurin-25-lein-2.12.0-alpine@sha256:04acf054eb570c1c7eec34da0eb88c4c5b2a3cdf02763354d59807e1b360f335
+    pull_policy: always
+    user: "${UID:-1000}:${GID:-1000}"
+    userns_mode: keep-id
+    volumes:
+      - ${PWD}:/usr/src/app:Z
+    working_dir: /usr/src/app
