@@ -19,6 +19,7 @@ services:
     volumes:
       - ${NIX_CONFIG_PATH:-.}:/config:Z
     user: "${UID:-1000}:${GID:-1000}"
+    userns_mode: keep-id
     working_dir: /config
   renovate:
     image: docker.io/renovate/renovate:42.95@sha256:f0fdd64663c0e0b41e8f2ec6ab4cf67e91ee5f15c1549fd5489ce04c8b9a18af
@@ -29,6 +30,7 @@ services:
       - path: ${COMPOSE_ENV_PATH}
         required: false
     user: "${UID:-1000}:${GID:-1000}"
+    userns_mode: keep-id
   searxng:
     image: docker.io/searxng/searxng:2026.1.11-cf74e1d9e@sha256:35e3520e53621e22566330d876d2a36e4a556628b6567bf2706ceb211c6d9c07
     pull_policy: always
@@ -39,6 +41,7 @@ services:
     image: quay.io/michaelvaldron/node-dev:v0.1.0@sha256:91ab754ac5bf6b5715e26b4c3ab2f9a3a7175bee28a109c5c63f844cc8f8718b
     pull_policy: always
     user: "${UID:-1000}:${GID:-1000}"
+    userns_mode: keep-id
     ports:
       - 3000:3000
       - 9229:9229
@@ -49,6 +52,7 @@ services:
     image: docker.io/library/golang:1.26rc2-alpine3.23@sha256:e804069354d9d4425f787964a0c3341a46a7b143f04b3396f35767f166a601ec
     pull_policy: always
     user: "${UID:-1000}:${GID:-1000}"
+    userns_mode: keep-id
     volumes:
       - ${PWD}:/go/src:Z
     working_dir: /go/src
@@ -56,6 +60,7 @@ services:
     image: docker.io/library/golang:1.25.6-alpine3.23@sha256:98e6cffc31ccc44c7c15d83df1d69891efee8115a5bb7ede2bf30a38af3e3c92
     pull_policy: always
     user: "${UID:-1000}:${GID:-1000}"
+    userns_mode: keep-id
     volumes:
       - ${PWD}:/go/src:Z
     working_dir: /go/src
@@ -63,6 +68,7 @@ services:
     image: docker.io/library/golang:1.24.12-alpine3.23@sha256:cac3bbfd11d3b7c0a134172aabafb8ab415abb8efefc313ba25d20bb94d0155f
     pull_policy: always
     user: "${UID:-1000}:${GID:-1000}"
+    userns_mode: keep-id
     volumes:
       - ${PWD}:/go/src:Z
     working_dir: /go/src
