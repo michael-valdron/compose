@@ -1,4 +1,6 @@
 name: myservices
+x-podman:
+  in_pod: false
 services:
   ssh:
     image: lscr.io/linuxserver/openssh-server:version-10.0_p1-r7@sha256:d32caf5bd3bc68bad4a30716638929e345d015cc0cfe6692a3f99015c288e23b
