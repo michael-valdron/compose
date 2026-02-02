@@ -104,3 +104,23 @@ services:
       - ${PWD}:/usr/src/app:Z
     working_dir: /usr/src/app
     entrypoint: /bin/sh
+  ollama:
+    image: docker.io/ollama/ollama:0.15.4@sha256:37ef34d78a6f4563a11cbbb336bbaa75f01eb19671d639973f98baa58f11a5ed
+    pull_policy: always
+    restart: unless-stopped
+    user: "1000:1000"
+    userns_mode: keep-id:uid=1000,gid=1000
+    volumes:
+      - ${HOME}/.ollama:/home/ubuntu/.ollama:Z
+    ports:
+      - 11434:11434
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:v0.7.2@sha256:16d9a3615b45f14a0c89f7ad7a3bf151f923ed32c2e68f9204eb17d1ce40774b
+    pull_policy: always
+    restart: unless-stopped
+    environment:
+      - WEBUI_AUTH=False
+    volumes:
+      - ${HOME}/.open-webui:/app/backend/data:Z
+    ports:
+      - 3002:8080
