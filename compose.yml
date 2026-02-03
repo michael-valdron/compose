@@ -23,7 +23,8 @@ services:
     user: "${UID:-1000}:${GID:-1000}"
     userns_mode: keep-id
     working_dir: /config
-    entrypoint: /bin/sh
+    entrypoint: /bin/sh -c
+    command: sh
   renovate:
     image: docker.io/renovate/renovate:42.95@sha256:f0fdd64663c0e0b41e8f2ec6ab4cf67e91ee5f15c1549fd5489ce04c8b9a18af
     pull_policy: always
@@ -51,34 +52,38 @@ services:
     volumes:
       - ${PWD}:/project:Z
     working_dir: /project
-    entrypoint: /bin/sh
+    entrypoint: /bin/sh -c
+    command: sh
   golang-next:
     image: docker.io/library/golang:1.26rc2-alpine3.23@sha256:e804069354d9d4425f787964a0c3341a46a7b143f04b3396f35767f166a601ec
     pull_policy: always
     user: "${UID:-1000}:${GID:-1000}"
     userns_mode: keep-id
     volumes:
-      - ${PWD}:/go/src:Z
-    working_dir: /go/src
-    entrypoint: /bin/sh
+      - ${PWD}:/go/src/app:Z
+    working_dir: /go/src/app
+    entrypoint: /bin/sh -c
+    command: sh
   golang:
     image: docker.io/library/golang:1.25.6-alpine3.23@sha256:98e6cffc31ccc44c7c15d83df1d69891efee8115a5bb7ede2bf30a38af3e3c92
     pull_policy: always
     user: "${UID:-1000}:${GID:-1000}"
     userns_mode: keep-id
     volumes:
-      - ${PWD}:/go/src:Z
-    working_dir: /go/src
-    entrypoint: /bin/sh
+      - ${PWD}:/go/src/app:Z
+    working_dir: /go/src/app
+    entrypoint: /bin/sh -c
+    command: sh
   golang-previous:
     image: docker.io/library/golang:1.24.12-alpine3.23@sha256:cac3bbfd11d3b7c0a134172aabafb8ab415abb8efefc313ba25d20bb94d0155f
     pull_policy: always
     user: "${UID:-1000}:${GID:-1000}"
     userns_mode: keep-id
     volumes:
-      - ${PWD}:/go/src:Z
-    working_dir: /go/src
-    entrypoint: /bin/sh
+      - ${PWD}:/go/src/app:Z
+    working_dir: /go/src/app
+    entrypoint: /bin/sh -c
+    command: sh
   clj:
     image: docker.io/library/clojure:temurin-25-tools-deps-1.12.4.1602-alpine@sha256:a5e473efbe877b07ecf6eed72337ba105fd4911aa65cb6e9b33c9a28f942a146
     pull_policy: always
@@ -87,7 +92,8 @@ services:
     volumes:
       - ${PWD}:/usr/src/app:Z
     working_dir: /usr/src/app
-    entrypoint: /bin/sh
+    entrypoint: /bin/sh -c
+    command: sh
   clj-lein:
     image: docker.io/library/clojure:temurin-25-lein-2.12.0-alpine@sha256:04acf054eb570c1c7eec34da0eb88c4c5b2a3cdf02763354d59807e1b360f335
     pull_policy: always
@@ -96,7 +102,8 @@ services:
     volumes:
       - ${PWD}:/usr/src/app:Z
     working_dir: /usr/src/app
-    entrypoint: /bin/sh
+    entrypoint: /bin/sh -c
+    command: sh
   python:
     image: ghcr.io/astral-sh/uv:0.9.28-python3.14-alpine3.23@sha256:54419a99f65f6ab61ac885d8d8871bd255b62539e48d745bdb6b1b963f49fe45
     pull_policy: always
@@ -105,7 +112,8 @@ services:
     volumes:
       - ${PWD}:/usr/src/app:Z
     working_dir: /usr/src/app
-    entrypoint: /bin/sh
+    entrypoint: /bin/sh -c
+    command: sh
   ollama:
     image: docker.io/ollama/ollama:0.15.4@sha256:37ef34d78a6f4563a11cbbb336bbaa75f01eb19671d639973f98baa58f11a5ed
     pull_policy: always
