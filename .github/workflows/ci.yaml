@@ -23,6 +23,7 @@ jobs:
         with:
           ref: ${{ github.event.inputs.ref || github.sha }}
           path: ${{ github.event.inputs.submodule || '.' }}
+          submodules: ${{ github.event_name == 'workflow_call' && 'true' || 'false' }}
       - name: YAML format
         run: |
           curl -L -O https://github.com/google/yamlfmt/releases/download/v0.17.2/yamlfmt_0.17.2_Linux_x86_64.tar.gz
@@ -37,6 +38,7 @@ jobs:
         with:
           ref: ${{ github.event.inputs.ref || github.sha }}
           path: ${{ github.event.inputs.submodule || '.' }}
+          submodules: ${{ github.event_name == 'workflow_call' && 'true' || 'false' }}
       - name: Set up Docker
         uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
       - name: Validate Docker Compose configuration
@@ -49,6 +51,7 @@ jobs:
         with:
           ref: ${{ github.event.inputs.ref || github.sha }}
           path: ${{ github.event.inputs.submodule || '.' }}
+          submodules: ${{ github.event_name == 'workflow_call' && 'true' || 'false' }}
       - name: Set up Docker
         uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
       - name: Run Docker Compose
@@ -65,6 +68,7 @@ jobs:
         with:
           ref: ${{ github.event.inputs.ref || github.sha }}
           path: ${{ github.event.inputs.submodule || '.' }}
+          submodules: ${{ github.event_name == 'workflow_call' && 'true' || 'false' }}
       - name: Set up Podman
         run: |
           sudo apt-get update
@@ -80,6 +84,7 @@ jobs:
         with:
           ref: ${{ github.event.inputs.ref || github.sha }}
           path: ${{ github.event.inputs.submodule || '.' }}
+          submodules: ${{ github.event_name == 'workflow_call' && 'true' || 'false' }}
       - name: Set up Podman
         run: |
           sudo apt-get update
