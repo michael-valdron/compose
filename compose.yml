@@ -75,7 +75,7 @@ services:
     entrypoint: /bin/sh -c
     command: sh
   golang-previous:
-    image: docker.io/library/golang:1.25.7-alpine3.23@sha256:81d49e1de26fa223b9ae0b4d5a4065ff8176a7d80aa5ef0bd9f2eee430afe4d7
+    image: docker.io/library/golang:1.24.13-alpine3.23@sha256:2bfff436e8ff17b88d512ca015ee88de4d1badde0e59c666c1f7c52b4fd50a93
     pull_policy: always
     user: "${UID:-1000}:${GID:-1000}"
     userns_mode: keep-id
