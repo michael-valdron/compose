@@ -7,11 +7,8 @@ on:
     branches: [ main ]
   workflow_call:
     inputs:
-      ref:
-        required: true
-        type: string
       submodule:
-        required: true
+        default: .
         type: string
 
 jobs:
@@ -20,11 +17,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-        with:
-          ref: ${{ github.event.inputs.ref || github.sha }}
-          path: ${{ github.event.inputs.submodule || '.' }}
-          submodules: ${{ github.event_name == 'workflow_call' && 'true' || 'false' }}
       - name: YAML format
+        working-directory: ${{ inputs.submodule }}
         run: |
           curl -L -O https://github.com/google/yamlfmt/releases/download/v0.17.2/yamlfmt_0.17.2_Linux_x86_64.tar.gz
           tar -xf yamlfmt_0.17.2_Linux_x86_64.tar.gz
@@ -35,64 +29,54 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-        with:
-          ref: ${{ github.event.inputs.ref || github.sha }}
-          path: ${{ github.event.inputs.submodule || '.' }}
-          submodules: ${{ github.event_name == 'workflow_call' && 'true' || 'false' }}
       - name: Set up Docker
         uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
       - name: Validate Docker Compose configuration
+        working-directory: ${{ inputs.submodule }}
         run: docker compose -f compose.yml config
   docker-compose:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-        with:
-          ref: ${{ github.event.inputs.ref || github.sha }}
-          path: ${{ github.event.inputs.submodule || '.' }}
-          submodules: ${{ github.event_name == 'workflow_call' && 'true' || 'false' }}
       - name: Set up Docker
         uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
       - name: Run Docker Compose
+        working-directory: ${{ inputs.submodule }}
         run: docker compose up -d
         continue-on-error: true
       - name: Stop Docker Compose services
         if: always()
+        working-directory: ${{ inputs.submodule }}
         run: docker compose down -v
   podman-compose-config:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-        with:
-          ref: ${{ github.event.inputs.ref || github.sha }}
-          path: ${{ github.event.inputs.submodule || '.' }}
-          submodules: ${{ github.event_name == 'workflow_call' && 'true' || 'false' }}
       - name: Set up Podman
         run: |
           sudo apt-get update
           sudo apt-get install -y podman python3-pip
           pip3 install podman-compose
       - name: Validate Podman Compose configuration
+        working-directory: ${{ inputs.submodule }}
         run: podman-compose -f compose.yml config
   podman-compose:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-        with:
-          ref: ${{ github.event.inputs.ref || github.sha }}
-          path: ${{ github.event.inputs.submodule || '.' }}
-          submodules: ${{ github.event_name == 'workflow_call' && 'true' || 'false' }}
       - name: Set up Podman
         run: |
           sudo apt-get update
           sudo apt-get install -y podman python3-pip
           pip3 install podman-compose
       - name: Run Podman Compose
+        working-directory: ${{ inputs.submodule }}
         run: podman-compose up -d
         continue-on-error: true
       - name: Stop Podman Compose services
         if: always()
+        working-directory: ${{ inputs.submodule }}
         run: podman-compose down -v
