@@ -42,7 +42,7 @@ services:
     ports:
       - 8888:8080
   dev:
-    image: quay.io/michaelvaldron/dev:0.1.0@sha256:e32d77dbcffa3f621c80c5c32584b4f6c43df600dcb23f151b7ea3a56f922abd
+    image: quay.io/michaelvaldron/dev:1.0.0@sha256:461a889bc5d212dca59f0c9f65fd1d0509e4a31266a49deef0eea282c8794649
     pull_policy: always
     userns_mode: keep-id:uid=1000,gid=1000
     volumes:
