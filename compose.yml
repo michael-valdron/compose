@@ -26,7 +26,7 @@ services:
     entrypoint: /bin/sh -c
     command: sh
   renovate:
-    image: docker.io/renovate/renovate:42.97@sha256:34607ebef3d18959d2f6b297204c72c2269f85555631eaed80ca67f01539c21a
+    image: docker.io/renovate/renovate:42.99@sha256:55257c9f54eff5382abacb0a119ba2357566cb01cdbf0a35f152e24729ab8e64
     pull_policy: always
     environment:
       - RENOVATE_AUTODISCOVER=${RENOVATE_AUTODISCOVER:-false}
