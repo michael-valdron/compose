@@ -48,7 +48,7 @@ services:
     volumes:
       - ${PWD}:/project:Z
   ollama:
-    image: docker.io/ollama/ollama:0.16.3@sha256:63f052826604a28a83795df1a66d9e364410c0b8d1357a62a885c62cef05cdbb
+    image: docker.io/ollama/ollama:0.17.5@sha256:719122581b6932e1240ae70d788859089cb80d17e23cd4f98ba960b0290f70cb
     pull_policy: always
     restart: unless-stopped
     user: "1000:1000"
