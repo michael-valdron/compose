@@ -45,6 +45,7 @@ services:
     image: quay.io/michaelvaldron/dev:1.0.0@sha256:461a889bc5d212dca59f0c9f65fd1d0509e4a31266a49deef0eea282c8794649
     pull_policy: always
     userns_mode: keep-id:uid=1000,gid=1000
+    network_mode: host
     volumes:
       - ${PWD}:/project:Z
   ollama:
