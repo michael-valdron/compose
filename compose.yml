@@ -16,7 +16,7 @@ services:
       - 2222:2222
     restart: unless-stopped
   nix:
-    image: docker.io/nixos/nix:2.34.4@sha256:0b1530edf840d9af519c7f3970cafbbed68d9d9554a83cc9adc04099753117e1
+    image: docker.io/nixos/nix:2.34.5@sha256:4e211f6763c542b08e9cdba448381286a3638903359390b46eab5f43ce6a6ed1
     pull_policy: always
     volumes:
       - ${NIX_CONFIG_PATH:-.}:/config:Z
