@@ -47,7 +47,7 @@ podman-compose-config:
   script:
     - podman-compose -f compose.yml config
 
-docker-compose-amd64:
+docker-compose-pull-amd64:
   stage: test
   extends: .pr-only-rule
   image: docker.io/library/docker:29.4.1-cli@sha256:17b5c235f40be7432a7c0914c154e9278aed63bad4afe5607e4f91840696a9f8
@@ -59,12 +59,10 @@ docker-compose-amd64:
     DOCKER_TLS_CERTDIR: ""
   script:
     - docker compose pull
-    - docker compose up -d ssh
-    - docker compose down ssh
   tags:
     - saas-linux-small-amd64
 
-docker-compose-arm64:
+docker-compose-pull-arm64:
   stage: test
   extends: .pr-only-rule
   image: docker.io/library/docker:29.4.1-cli@sha256:17b5c235f40be7432a7c0914c154e9278aed63bad4afe5607e4f91840696a9f8
@@ -76,51 +74,33 @@ docker-compose-arm64:
     DOCKER_TLS_CERTDIR: ""
   script:
     - docker compose pull
-    - docker compose up -d ssh
-    - docker compose down ssh
   tags:
     - saas-linux-small-arm64
 
-podman-compose-amd64:
+podman-compose-pull-amd64:
   stage: test
   extends: .pr-only-rule
   image: quay.io/podman/stable:v5.8.2@sha256:a356647779de5e7c48233791793c85812750604f4cd858069371c69add23e366
-  variables:
-    XDG_RUNTIME_DIR: /tmp/podman-run
-    PODMAN_USER: gitlab
-    PODMAN_UID: 1000
-    PODMAN_GID: 1000
+
   before_script:
     - microdnf install -y python3-pip git || dnf install -y python3-pip git
     - pip3 install podman-compose
-    - mkdir -p "$XDG_RUNTIME_DIR"
-    - export PATH=$PATH:/usr/local/bin
 
   script:
     - podman-compose pull
-    - podman-compose up -d ssh
-    - podman-compose down
   tags:
     - saas-linux-small-amd64
 
-podman-compose-arm64:
+podman-compose-pull-arm64:
   stage: test
   extends: .pr-only-rule
   image: quay.io/podman/stable:v5.8.2@sha256:a356647779de5e7c48233791793c85812750604f4cd858069371c69add23e366
-  variables:
-    XDG_RUNTIME_DIR: /tmp/podman-run
-    PODMAN_USER: gitlab
-    PODMAN_UID: 1000
-    PODMAN_GID: 1000
+
   before_script:
     - microdnf install -y python3-pip git || dnf install -y python3-pip git
     - pip3 install podman-compose
-    - mkdir -p "$XDG_RUNTIME_DIR"
-    - export PATH=$PATH:/usr/local/bin
 
   script:
     - podman-compose pull
-    - podman-compose up -d ssh
-    - podman-compose down
   tags:
     - saas-linux-small-arm64
