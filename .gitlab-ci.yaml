@@ -1,0 +1,89 @@
+stages:
+  - lint
+  - validate
+  - test
+
+default:
+  interruptible: true
+
+.lint-template:
+  stage: lint
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  needs:
+    - build-dev-image-amd64
+
+.validate-template:
+  stage: validate
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  needs:
+    - build-dev-image-amd64
+
+.test-template:
+  stage: test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  needs:
+    - build-dev-image-amd64
+    - build-dev-image-arm64
+
+yaml-lint:
+  extends: .lint-template
+  image: ghcr.io/google/yamlfmt:0.17.2@sha256:fa6874890092db69f35ece6a50e574522cae2a59b6148a1f6ac6d510e5bcf3cc
+  script:
+    - yamlfmt -lint .
+
+docker-compose-config:
+  extends: .validate-template
+  image: docker.io/library/docker:29.4.1-cli@sha256:17b5c235f40be7432a7c0914c154e9278aed63bad4afe5607e4f91840696a9f8
+
+  services:
+    - docker.io/library/docker:29.4.1-dind@sha256:c77e5d7912f9b137cc67051fdc2991d8f5ae22c55ddf532bb836dcb693a04940
+
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+
+  script:
+    - docker compose -f compose.yml config
+
+podman-compose-config:
+  extends: .validate-template
+  image: quay.io/podman/stable:v5.8.2@sha256:a356647779de5e7c48233791793c85812750604f4cd858069371c69add23e366
+
+  before_script:
+    - microdnf install -y python3-pip git || dnf install -y python3-pip git
+    - pip3 install podman-compose
+
+  script:
+    - podman-compose -f compose.yml config
+
+docker-compose:
+  extends: .test-template
+  image: docker.io/library/docker:29.4.1-cli@sha256:17b5c235f40be7432a7c0914c154e9278aed63bad4afe5607e4f91840696a9f8
+
+  services:
+    - docker.io/library/docker:29.4.1-dind@sha256:c77e5d7912f9b137cc67051fdc2991d8f5ae22c55ddf532bb836dcb693a04940
+
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+
+  script:
+    - docker compose up -d
+    - docker compose down -v
+
+podman-compose:
+  extends: .test-template
+  image: quay.io/podman/stable:v5.8.2@sha256:a356647779de5e7c48233791793c85812750604f4cd858069371c69add23e366
+
+  before_script:
+    - microdnf install -y python3-pip git || dnf install -y python3-pip git
+    - pip3 install podman-compose
+
+  script:
+    - podman-compose up -d
+    - podman-compose down -v

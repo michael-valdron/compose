@@ -9,7 +9,7 @@
     "automerge": true,
     "automergeType": "pr",
     "automergeStrategy": "squash",
-    "enabledManagers": ["docker-compose", "github-actions"],
+    "enabledManagers": ["docker-compose", "github-actions", "gitlabci"],
     "packageRules": [
         {
             "matchUpdateTypes": ["major"],
