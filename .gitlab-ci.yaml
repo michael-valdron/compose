@@ -58,8 +58,9 @@ docker-compose-amd64:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
   script:
-    - docker compose up -d
-    - docker compose down -v
+    - docker compose pull
+    - docker compose up -d ssh
+    - docker compose down ssh
   tags:
     - saas-linux-small-amd64
 
@@ -74,8 +75,9 @@ docker-compose-arm64:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
   script:
-    - docker compose up -d
-    - docker compose down -v
+    - docker compose pull
+    - docker compose up -d ssh
+    - docker compose down ssh
   tags:
     - saas-linux-small-arm64
 
@@ -95,8 +97,9 @@ podman-compose-amd64:
     - export PATH=$PATH:/usr/local/bin
 
   script:
-    - podman-compose up -d
-    - podman-compose down -v
+    - podman-compose pull
+    - podman-compose up -d ssh
+    - podman-compose down
   tags:
     - saas-linux-small-amd64
 
@@ -116,7 +119,8 @@ podman-compose-arm64:
     - export PATH=$PATH:/usr/local/bin
 
   script:
-    - podman-compose up -d
-    - podman-compose down -v
+    - podman-compose pull
+    - podman-compose up -d ssh
+    - podman-compose down
   tags:
     - saas-linux-small-arm64
