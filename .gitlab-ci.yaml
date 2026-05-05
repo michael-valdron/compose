@@ -26,9 +26,33 @@ default:
   stage: test
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-  tags:
-    - saas-linux-small-amd64
-    - saas-linux-small-arm64
+
+.docker-compose:
+  extends: .test-template
+  image: docker.io/library/docker:29.4.1-cli@sha256:17b5c235f40be7432a7c0914c154e9278aed63bad4afe5607e4f91840696a9f8
+
+  services:
+    - docker.io/library/docker:29.4.1-dind@sha256:c77e5d7912f9b137cc67051fdc2991d8f5ae22c55ddf532bb836dcb693a04940
+
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+
+  script:
+    - docker compose up -d
+    - docker compose down -v
+
+.podman-compose:
+  extends: .test-template
+  image: quay.io/podman/stable:v5.8.2@sha256:a356647779de5e7c48233791793c85812750604f4cd858069371c69add23e366
+
+  before_script:
+    - microdnf install -y python3-pip git || dnf install -y python3-pip git
+    - pip3 install podman-compose
+
+  script:
+    - podman-compose up -d
+    - podman-compose down -v
 
 yaml-lint:
   extends: .lint-template
@@ -61,29 +85,22 @@ podman-compose-config:
   script:
     - podman-compose -f compose.yml config
 
-docker-compose:
-  extends: .test-template
-  image: docker.io/library/docker:29.4.1-cli@sha256:17b5c235f40be7432a7c0914c154e9278aed63bad4afe5607e4f91840696a9f8
+docker-compose-amd64:
+  extends: .docker-compose
+  tags:
+    - saas-linux-small-amd64
 
-  services:
-    - docker.io/library/docker:29.4.1-dind@sha256:c77e5d7912f9b137cc67051fdc2991d8f5ae22c55ddf532bb836dcb693a04940
+docker-compose-arm64:
+  extends: .docker-compose
+  tags:
+    - saas-linux-small-arm64
 
-  variables:
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_TLS_CERTDIR: ""
+podman-compose-amd64:
+  extends: .podman-compose
+  tags:
+    - saas-linux-small-amd64
 
-  script:
-    - docker compose up -d
-    - docker compose down -v
-
-podman-compose:
-  extends: .test-template
-  image: quay.io/podman/stable:v5.8.2@sha256:a356647779de5e7c48233791793c85812750604f4cd858069371c69add23e366
-
-  before_script:
-    - microdnf install -y python3-pip git || dnf install -y python3-pip git
-    - pip3 install podman-compose
-
-  script:
-    - podman-compose up -d
-    - podman-compose down -v
+podman-compose-arm64:
+  extends: .podman-compose
+  tags:
+    - saas-linux-small-arm64
