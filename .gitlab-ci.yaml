@@ -6,68 +6,34 @@ stages:
 default:
   interruptible: true
 
-.lint-template:
-  stage: lint
+.default-rules:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  tags:
-    - saas-linux-small-amd64
 
-.validate-template:
-  stage: validate
+.pr-only-rule:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  tags:
-    - saas-linux-small-amd64
-
-.test-template:
-  stage: test
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-
-.docker-compose:
-  extends: .test-template
-  image: docker.io/library/docker:29.4.1-cli@sha256:17b5c235f40be7432a7c0914c154e9278aed63bad4afe5607e4f91840696a9f8
-
-  services:
-    - docker.io/library/docker:29.4.1-dind@sha256:c77e5d7912f9b137cc67051fdc2991d8f5ae22c55ddf532bb836dcb693a04940
-
-  script:
-    - docker compose up -d
-    - docker compose down -v
-
-.podman-compose:
-  extends: .test-template
-  image: quay.io/podman/stable:v5.8.2@sha256:a356647779de5e7c48233791793c85812750604f4cd858069371c69add23e366
-
-  before_script:
-    - microdnf install -y python3-pip git || dnf install -y python3-pip git
-    - pip3 install podman-compose
-
-  script:
-    - podman-compose up -d
-    - podman-compose down -v
 
 yaml-lint:
-  extends: .lint-template
+  stage: lint
+  extends: .default-rules
   image: ghcr.io/google/yamlfmt:0.17.2@sha256:fa6874890092db69f35ece6a50e574522cae2a59b6148a1f6ac6d510e5bcf3cc
   script:
     - yamlfmt -lint .
 
 docker-compose-config:
-  extends: .validate-template
+  stage: validate
+  extends: .default-rules
   image: docker.io/library/docker:29.4.1-cli@sha256:17b5c235f40be7432a7c0914c154e9278aed63bad4afe5607e4f91840696a9f8
-
   services:
     - docker.io/library/docker:29.4.1-dind@sha256:c77e5d7912f9b137cc67051fdc2991d8f5ae22c55ddf532bb836dcb693a04940
-
   script:
     - docker compose -f compose.yml config
 
 podman-compose-config:
-  extends: .validate-template
+  stage: validate
+  extends: .default-rules
   image: quay.io/podman/stable:v5.8.2@sha256:a356647779de5e7c48233791793c85812750604f4cd858069371c69add23e366
 
   before_script:
@@ -78,23 +44,55 @@ podman-compose-config:
     - podman-compose -f compose.yml config
 
 docker-compose-amd64:
-  extends: .docker-compose
+  stage: test
+  extends: .pr-only-rule
+  image: docker.io/library/docker:29.4.1-cli@sha256:17b5c235f40be7432a7c0914c154e9278aed63bad4afe5607e4f91840696a9f8
+  services:
+    - docker.io/library/docker:29.4.1-dind@sha256:c77e5d7912f9b137cc67051fdc2991d8f5ae22c55ddf532bb836dcb693a04940
+  script:
+    - docker compose up -d
+    - docker compose down -v
   tags:
     - saas-linux-small-amd64
 
 docker-compose-arm64:
-  extends: .docker-compose
+  stage: test
+  extends: .pr-only-rule
+  image: docker.io/library/docker:29.4.1-cli@sha256:17b5c235f40be7432a7c0914c154e9278aed63bad4afe5607e4f91840696a9f8
+  services:
+    - docker.io/library/docker:29.4.1-dind@sha256:c77e5d7912f9b137cc67051fdc2991d8f5ae22c55ddf532bb836dcb693a04940
+  script:
+    - docker compose up -d
+    - docker compose down -v
   tags:
     - saas-linux-small-arm64
 
 podman-compose-amd64:
-  extends: .podman-compose
+  stage: test
+  extends: .pr-only-rule
+  image: quay.io/podman/stable:v5.8.2@sha256:a356647779de5e7c48233791793c85812750604f4cd858069371c69add23e366
+
+  before_script:
+    - microdnf install -y python3-pip git || dnf install -y python3-pip git
+    - pip3 install podman-compose
+
+  script:
+    - podman-compose up -d
+    - podman-compose down -v
   tags:
     - saas-linux-small-amd64
-    - privileged
 
 podman-compose-arm64:
-  extends: .podman-compose
+  stage: test
+  extends: .pr-only-rule
+  image: quay.io/podman/stable:v5.8.2@sha256:a356647779de5e7c48233791793c85812750604f4cd858069371c69add23e366
+
+  before_script:
+    - microdnf install -y python3-pip git || dnf install -y python3-pip git
+    - pip3 install podman-compose
+
+  script:
+    - podman-compose up -d
+    - podman-compose down -v
   tags:
     - saas-linux-small-arm64
-    - privileged
