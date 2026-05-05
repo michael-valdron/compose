@@ -11,24 +11,24 @@ default:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  needs:
-    - build-dev-image-amd64
+  tags:
+    - saas-linux-small-amd64
 
 .validate-template:
   stage: validate
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  needs:
-    - build-dev-image-amd64
+  tags:
+    - saas-linux-small-amd64
 
 .test-template:
   stage: test
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-  needs:
-    - build-dev-image-amd64
-    - build-dev-image-arm64
+  tags:
+    - saas-linux-small-amd64
+    - saas-linux-small-arm64
 
 yaml-lint:
   extends: .lint-template
