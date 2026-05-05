@@ -34,10 +34,6 @@ default:
   services:
     - docker.io/library/docker:29.4.1-dind@sha256:c77e5d7912f9b137cc67051fdc2991d8f5ae22c55ddf532bb836dcb693a04940
 
-  variables:
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_TLS_CERTDIR: ""
-
   script:
     - docker compose up -d
     - docker compose down -v
@@ -67,10 +63,6 @@ docker-compose-config:
   services:
     - docker.io/library/docker:29.4.1-dind@sha256:c77e5d7912f9b137cc67051fdc2991d8f5ae22c55ddf532bb836dcb693a04940
 
-  variables:
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_TLS_CERTDIR: ""
-
   script:
     - docker compose -f compose.yml config
 
@@ -99,8 +91,10 @@ podman-compose-amd64:
   extends: .podman-compose
   tags:
     - saas-linux-small-amd64
+    - privileged
 
 podman-compose-arm64:
   extends: .podman-compose
   tags:
     - saas-linux-small-arm64
+    - privileged
