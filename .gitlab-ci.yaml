@@ -83,10 +83,16 @@ podman-compose-amd64:
   stage: test
   extends: .pr-only-rule
   image: quay.io/podman/stable:v5.8.2@sha256:a356647779de5e7c48233791793c85812750604f4cd858069371c69add23e366
-
+  variables:
+    XDG_RUNTIME_DIR: /tmp/podman-run
+    PODMAN_USER: gitlab
+    PODMAN_UID: 1000
+    PODMAN_GID: 1000
   before_script:
     - microdnf install -y python3-pip git || dnf install -y python3-pip git
     - pip3 install podman-compose
+    - mkdir -p "$XDG_RUNTIME_DIR"
+    - export PATH=$PATH:/usr/local/bin
 
   script:
     - podman-compose up -d
@@ -98,10 +104,16 @@ podman-compose-arm64:
   stage: test
   extends: .pr-only-rule
   image: quay.io/podman/stable:v5.8.2@sha256:a356647779de5e7c48233791793c85812750604f4cd858069371c69add23e366
-
+  variables:
+    XDG_RUNTIME_DIR: /tmp/podman-run
+    PODMAN_USER: gitlab
+    PODMAN_UID: 1000
+    PODMAN_GID: 1000
   before_script:
     - microdnf install -y python3-pip git || dnf install -y python3-pip git
     - pip3 install podman-compose
+    - mkdir -p "$XDG_RUNTIME_DIR"
+    - export PATH=$PATH:/usr/local/bin
 
   script:
     - podman-compose up -d
