@@ -38,7 +38,7 @@ docker-compose-config:
 podman-compose-config:
   stage: validate
   extends: .default-rules
-  image: quay.io/podman/stable:v5.8.2@sha256:a356647779de5e7c48233791793c85812750604f4cd858069371c69add23e366
+  image: quay.io/podman/stable:v5.8.2@sha256:d1665506450a62a6a32f8f44370f636540a3d79909a9cd9e59a9c68c85e014c7
 
   before_script:
     - microdnf install -y python3-pip git || dnf install -y python3-pip git
@@ -80,7 +80,7 @@ docker-compose-pull-arm64:
 podman-compose-pull-amd64:
   stage: test
   extends: .pr-only-rule
-  image: quay.io/podman/stable:v5.8.2@sha256:a356647779de5e7c48233791793c85812750604f4cd858069371c69add23e366
+  image: quay.io/podman/stable:v5.8.2@sha256:d1665506450a62a6a32f8f44370f636540a3d79909a9cd9e59a9c68c85e014c7
 
   before_script:
     - microdnf install -y python3-pip git || dnf install -y python3-pip git
@@ -94,7 +94,7 @@ podman-compose-pull-amd64:
 podman-compose-pull-arm64:
   stage: test
   extends: .pr-only-rule
-  image: quay.io/podman/stable:v5.8.2@sha256:a356647779de5e7c48233791793c85812750604f4cd858069371c69add23e366
+  image: quay.io/podman/stable:v5.8.2@sha256:d1665506450a62a6a32f8f44370f636540a3d79909a9cd9e59a9c68c85e014c7
 
   before_script:
     - microdnf install -y python3-pip git || dnf install -y python3-pip git
