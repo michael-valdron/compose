@@ -18,7 +18,7 @@ default:
 yaml-lint:
   stage: lint
   extends: .default-rules
-  image: ghcr.io/google/yamlfmt:0.17.2@sha256:fa6874890092db69f35ece6a50e574522cae2a59b6148a1f6ac6d510e5bcf3cc
+  image: ghcr.io/google/yamlfmt:0.21.0@sha256:015f4f1e818b38cb72bec2d4baa5d312d3a5f40c6c22ff3fef35a5415095b7f2
   script:
     - yamlfmt -lint .
 
