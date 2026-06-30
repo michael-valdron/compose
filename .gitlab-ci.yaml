@@ -25,7 +25,7 @@ yaml-lint:
 docker-compose-config:
   stage: validate
   extends: .default-rules
-  image: docker.io/library/docker:29.5.3-cli@sha256:873de13208aab9c1de73fe984fd45883e01464fcfcc85efa20aa56a9ccfe7aa6
+  image: docker.io/library/docker:29.5.3-cli@sha256:11e1133c30f3ceb73c6bdc7dfb78b3f9ed8e8e0d1d0400e91c5ec2eb240bf2ff
   services:
     - name: docker.io/library/docker:29.5.3-dind@sha256:7d85d0eda291f1a7ab6df4a9d1802b5ad4cf9145a088bd11188c78dcb5c7392b
       alias: docker
@@ -50,7 +50,7 @@ podman-compose-config:
 docker-compose-pull-amd64:
   stage: test
   extends: .pr-only-rule
-  image: docker.io/library/docker:29.5.3-cli@sha256:873de13208aab9c1de73fe984fd45883e01464fcfcc85efa20aa56a9ccfe7aa6
+  image: docker.io/library/docker:29.5.3-cli@sha256:11e1133c30f3ceb73c6bdc7dfb78b3f9ed8e8e0d1d0400e91c5ec2eb240bf2ff
   services:
     - name: docker.io/library/docker:29.5.3-dind@sha256:7d85d0eda291f1a7ab6df4a9d1802b5ad4cf9145a088bd11188c78dcb5c7392b
       alias: docker
@@ -65,7 +65,7 @@ docker-compose-pull-amd64:
 docker-compose-pull-arm64:
   stage: test
   extends: .pr-only-rule
-  image: docker.io/library/docker:29.5.3-cli@sha256:873de13208aab9c1de73fe984fd45883e01464fcfcc85efa20aa56a9ccfe7aa6
+  image: docker.io/library/docker:29.5.3-cli@sha256:11e1133c30f3ceb73c6bdc7dfb78b3f9ed8e8e0d1d0400e91c5ec2eb240bf2ff
   services:
     - name: docker.io/library/docker:29.5.3-dind@sha256:7d85d0eda291f1a7ab6df4a9d1802b5ad4cf9145a088bd11188c78dcb5c7392b
       alias: docker
