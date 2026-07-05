@@ -68,3 +68,12 @@ services:
       - ${HOME}/.open-webui:/app/backend/data:Z
     ports:
       - 3002:8080
+  ovhcloud:
+    image: docker.io/ovhcom/ovhcloud-cli:v0.11.0@sha256:79def28099212a67292caa246040cb789123125c56c154570084b5a7631fe495
+    pull_policy: always
+    userns_mode: keep-id:uid=1000,gid=1000
+    network_mode: host
+    working_dir: /work
+    volumes:
+      - ${PWD}:/work:Z
+      - ${HOME}/.ovhcloud/config:/config
