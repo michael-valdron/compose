@@ -77,3 +77,11 @@ services:
     volumes:
       - ${PWD}:/work:Z
       - ${HOME}/.ovhcloud/config:/config
+  ansible:
+    image: docker.io/alpine/ansible:2.21.0@sha256:4965f84a0bbe5a370066e3ba9e35c4b8e66a119697cc1b7679fdba5be592e756
+    pull_policy: always
+    network_mode: host
+    working_dir: /apps
+    volumes:
+      - ${PWD}:/apps:Z
+      - ${HOME}/.ssh:/root/.ssh:ro
