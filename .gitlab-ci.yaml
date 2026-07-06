@@ -27,7 +27,7 @@ docker-compose-config:
   extends: .default-rules
   image: docker.io/library/docker:29.5.3-cli@sha256:873de13208aab9c1de73fe984fd45883e01464fcfcc85efa20aa56a9ccfe7aa6
   services:
-    - name: docker.io/library/docker:29.5.3-dind@sha256:7d85d0eda291f1a7ab6df4a9d1802b5ad4cf9145a088bd11188c78dcb5c7392b
+    - name: docker.io/library/docker:29.5.3-dind@sha256:7278248384185bcbb54c7a76b2f0a7d354c4aac920605cc1ab48968d961052fb
       alias: docker
   variables:
     DOCKER_HOST: tcp://docker:2375
@@ -52,7 +52,7 @@ docker-compose-pull-amd64:
   extends: .pr-only-rule
   image: docker.io/library/docker:29.5.3-cli@sha256:873de13208aab9c1de73fe984fd45883e01464fcfcc85efa20aa56a9ccfe7aa6
   services:
-    - name: docker.io/library/docker:29.5.3-dind@sha256:7d85d0eda291f1a7ab6df4a9d1802b5ad4cf9145a088bd11188c78dcb5c7392b
+    - name: docker.io/library/docker:29.5.3-dind@sha256:7278248384185bcbb54c7a76b2f0a7d354c4aac920605cc1ab48968d961052fb
       alias: docker
   variables:
     DOCKER_HOST: tcp://docker:2375
@@ -67,7 +67,7 @@ docker-compose-pull-arm64:
   extends: .pr-only-rule
   image: docker.io/library/docker:29.5.3-cli@sha256:873de13208aab9c1de73fe984fd45883e01464fcfcc85efa20aa56a9ccfe7aa6
   services:
-    - name: docker.io/library/docker:29.5.3-dind@sha256:7d85d0eda291f1a7ab6df4a9d1802b5ad4cf9145a088bd11188c78dcb5c7392b
+    - name: docker.io/library/docker:29.5.3-dind@sha256:7278248384185bcbb54c7a76b2f0a7d354c4aac920605cc1ab48968d961052fb
       alias: docker
   variables:
     DOCKER_HOST: tcp://docker:2375
