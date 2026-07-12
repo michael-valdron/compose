@@ -21,6 +21,24 @@
             "matchBaseBranches": "main",
             "matchManagers": ["docker-compose"],
             "enabled": false
+        },
+        {
+            "matchManagers": ["docker-compose"],
+            "groupName": "services deps",
+            "groupSlug": "services-deps",
+            "commitMessageTopic": "{{depName}}"
+        },
+        {
+            "matchManagers": ["github-actions"],
+            "groupName": "github deps",
+            "groupSlug": "github-deps",
+            "commitMessageTopic": "{{depName}}"
+        },
+        {
+            "matchManagers": ["gitlabci"],
+            "groupName": "gitlab deps",
+            "groupSlug": "gitlab-deps",
+            "commitMessageTopic": "{{depName}}"
         }
     ]
 }
