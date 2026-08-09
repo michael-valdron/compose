@@ -25,9 +25,9 @@ yaml-lint:
 docker-compose-config:
   stage: validate
   extends: .default-rules
-  image: docker.io/library/docker:29.7.0-cli@sha256:206ae9cc405101ab0cf97d4b515d21bf6aae961f98f7f9d8de6c111718fef335
+  image: docker.io/library/docker:29.7.1-cli@sha256:27a51d5ab1cd38d9eeaba7b415b8c07bc10c31e1cf1ec8d78f6413fcfab3f44f
   services:
-    - name: docker.io/library/docker:29.7.0-dind@sha256:084e385b0c9b7ab35d5a46dfedd033721448c000dbec71adcf13da8a9e71baa8
+    - name: docker.io/library/docker:29.7.1-dind@sha256:e8faad5a8dc5279dff929afc5449f2791736912fff9f99351d742db2fad01b4c
       alias: docker
   variables:
     DOCKER_HOST: tcp://docker:2375
@@ -50,9 +50,9 @@ podman-compose-config:
 docker-compose-pull-amd64:
   stage: test
   extends: .pr-only-rule
-  image: docker.io/library/docker:29.7.0-cli@sha256:206ae9cc405101ab0cf97d4b515d21bf6aae961f98f7f9d8de6c111718fef335
+  image: docker.io/library/docker:29.7.1-cli@sha256:27a51d5ab1cd38d9eeaba7b415b8c07bc10c31e1cf1ec8d78f6413fcfab3f44f
   services:
-    - name: docker.io/library/docker:29.7.0-dind@sha256:084e385b0c9b7ab35d5a46dfedd033721448c000dbec71adcf13da8a9e71baa8
+    - name: docker.io/library/docker:29.7.1-dind@sha256:e8faad5a8dc5279dff929afc5449f2791736912fff9f99351d742db2fad01b4c
       alias: docker
   variables:
     DOCKER_HOST: tcp://docker:2375
@@ -65,9 +65,9 @@ docker-compose-pull-amd64:
 docker-compose-pull-arm64:
   stage: test
   extends: .pr-only-rule
-  image: docker.io/library/docker:29.7.0-cli@sha256:206ae9cc405101ab0cf97d4b515d21bf6aae961f98f7f9d8de6c111718fef335
+  image: docker.io/library/docker:29.7.1-cli@sha256:27a51d5ab1cd38d9eeaba7b415b8c07bc10c31e1cf1ec8d78f6413fcfab3f44f
   services:
-    - name: docker.io/library/docker:29.7.0-dind@sha256:084e385b0c9b7ab35d5a46dfedd033721448c000dbec71adcf13da8a9e71baa8
+    - name: docker.io/library/docker:29.7.1-dind@sha256:e8faad5a8dc5279dff929afc5449f2791736912fff9f99351d742db2fad01b4c
       alias: docker
   variables:
     DOCKER_HOST: tcp://docker:2375
