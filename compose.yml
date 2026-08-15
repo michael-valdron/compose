@@ -16,7 +16,7 @@ services:
       - 2222:2222
     restart: unless-stopped
   nix:
-    image: docker.io/nixos/nix:2.35.1@sha256:377d4887aca98f0dfa12971c1ea6d6a625a435d8b610d4c95a436843da6fbfd1
+    image: docker.io/nixos/nix:2.35.2@sha256:7a007c766426c1877758ddc5cb87a965ac131fc78c582ce0083d922d51ae945c
     pull_policy: always
     volumes:
       - ${NIX_CONFIG_PATH:-.}:/config:Z
@@ -82,7 +82,7 @@ services:
     entrypoint: sh -c "corepack enable yarn && corepack prepare yarn@${YARN_VERSION:-stable} --activate && exec \"$@\"" --
     command: node
   ollama:
-    image: docker.io/ollama/ollama:0.32.6@sha256:b88c73ace3e115f8ec53dc8761ae1c0aabfa675406e3681786b98757ce050f42
+    image: docker.io/ollama/ollama:0.32.13@sha256:77f1a2a54460f0380f2611e1464233d9b82cb6e58afc8f60abec0061049d2d82
     pull_policy: always
     restart: unless-stopped
     user: "1000:1000"
