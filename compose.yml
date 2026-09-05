@@ -82,7 +82,7 @@ services:
     entrypoint: sh -c "corepack enable yarn && corepack prepare yarn@${YARN_VERSION:-stable} --activate && exec \"$@\"" --
     command: node
   ollama:
-    image: docker.io/ollama/ollama:0.33.2@sha256:020e4134285e2ef4d8fd801234176de3b4faadc992a3eb06c8e66a2f9d4c4ba2
+    image: docker.io/ollama/ollama:0.33.3@sha256:32931b46719f673c05fdbaa81ccb26da18ea4a1c57590a754874ab28ba269eb2
     pull_policy: always
     restart: unless-stopped
     user: "1000:1000"
@@ -92,7 +92,7 @@ services:
     ports:
       - 11434:11434
   open-webui:
-    image: ghcr.io/open-webui/open-webui:v0.11.1@sha256:6bb1fbe8ab0a3e0456067f493044ffb66a30a65a34be47f6a5862176a370dd16
+    image: ghcr.io/open-webui/open-webui:v0.11.3@sha256:41daa0cf2561a5d4c8d1ff31ee2a98d93ab4d3ac2605cac69366ff6a3374a933
     pull_policy: always
     restart: unless-stopped
     environment:
@@ -102,7 +102,7 @@ services:
     ports:
       - 3002:8080
   ovhcloud:
-    image: docker.io/ovhcom/ovhcloud-cli:v0.11.0@sha256:79def28099212a67292caa246040cb789123125c56c154570084b5a7631fe495
+    image: docker.io/ovhcom/ovhcloud-cli:v0.14.0@sha256:b39bdcfad310486e94c45a412074c7c03b691d862a1613856d6b2918a275d24f
     pull_policy: always
     userns_mode: keep-id:uid=1000,gid=1000
     network_mode: host
