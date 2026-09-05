@@ -25,9 +25,9 @@ yaml-lint:
 docker-compose-config:
   stage: validate
   extends: .default-rules
-  image: docker.io/library/docker:29.7.2-cli@sha256:000bb62ff495f986c9f5578eb67cc2cb98b91138eda81d7762d5371eb8a497fe
+  image: docker.io/library/docker:29.8.0-cli@sha256:eccaacfeed644c7de222ff047483568cb988dde95476fbaaf10ea2d04921bb66
   services:
-    - name: docker.io/library/docker:29.7.2-dind@sha256:12e683a161823b2a839aeea999b9d960e6e1f9a97b1679ad6b441982e2d9cf07
+    - name: docker.io/library/docker:29.8.0-dind@sha256:5efed980cba3fc126cf54e21a5a6ff8849d05b6e0623d6e7612f48e9cd6cd17e
       alias: docker
   variables:
     DOCKER_HOST: tcp://docker:2375
@@ -38,7 +38,7 @@ docker-compose-config:
 podman-compose-config:
   stage: validate
   extends: .default-rules
-  image: quay.io/podman/stable:v5.8.4@sha256:f3d0438620587ced908c7f1a77c6bda92a42dfbdaa0507c6d9c48fe51befbd17
+  image: quay.io/podman/stable:v5.8.4@sha256:6297a84090f6d51863f17c644b5248619706943bc14540764886b019f3ae78e0
 
   before_script:
     - microdnf install -y python3-pip git || dnf install -y python3-pip git
@@ -50,9 +50,9 @@ podman-compose-config:
 docker-compose-pull-amd64:
   stage: test
   extends: .pr-only-rule
-  image: docker.io/library/docker:29.7.2-cli@sha256:000bb62ff495f986c9f5578eb67cc2cb98b91138eda81d7762d5371eb8a497fe
+  image: docker.io/library/docker:29.8.0-cli@sha256:eccaacfeed644c7de222ff047483568cb988dde95476fbaaf10ea2d04921bb66
   services:
-    - name: docker.io/library/docker:29.7.2-dind@sha256:12e683a161823b2a839aeea999b9d960e6e1f9a97b1679ad6b441982e2d9cf07
+    - name: docker.io/library/docker:29.8.0-dind@sha256:5efed980cba3fc126cf54e21a5a6ff8849d05b6e0623d6e7612f48e9cd6cd17e
       alias: docker
   variables:
     DOCKER_HOST: tcp://docker:2375
@@ -65,9 +65,9 @@ docker-compose-pull-amd64:
 docker-compose-pull-arm64:
   stage: test
   extends: .pr-only-rule
-  image: docker.io/library/docker:29.7.2-cli@sha256:000bb62ff495f986c9f5578eb67cc2cb98b91138eda81d7762d5371eb8a497fe
+  image: docker.io/library/docker:29.8.0-cli@sha256:eccaacfeed644c7de222ff047483568cb988dde95476fbaaf10ea2d04921bb66
   services:
-    - name: docker.io/library/docker:29.7.2-dind@sha256:12e683a161823b2a839aeea999b9d960e6e1f9a97b1679ad6b441982e2d9cf07
+    - name: docker.io/library/docker:29.8.0-dind@sha256:5efed980cba3fc126cf54e21a5a6ff8849d05b6e0623d6e7612f48e9cd6cd17e
       alias: docker
   variables:
     DOCKER_HOST: tcp://docker:2375
@@ -80,7 +80,7 @@ docker-compose-pull-arm64:
 podman-compose-pull-amd64:
   stage: test
   extends: .pr-only-rule
-  image: quay.io/podman/stable:v5.8.4@sha256:f3d0438620587ced908c7f1a77c6bda92a42dfbdaa0507c6d9c48fe51befbd17
+  image: quay.io/podman/stable:v5.8.4@sha256:6297a84090f6d51863f17c644b5248619706943bc14540764886b019f3ae78e0
 
   before_script:
     - microdnf install -y python3-pip git || dnf install -y python3-pip git
@@ -94,7 +94,7 @@ podman-compose-pull-amd64:
 podman-compose-pull-arm64:
   stage: test
   extends: .pr-only-rule
-  image: quay.io/podman/stable:v5.8.4@sha256:f3d0438620587ced908c7f1a77c6bda92a42dfbdaa0507c6d9c48fe51befbd17
+  image: quay.io/podman/stable:v5.8.4@sha256:6297a84090f6d51863f17c644b5248619706943bc14540764886b019f3ae78e0
 
   before_script:
     - microdnf install -y python3-pip git || dnf install -y python3-pip git
