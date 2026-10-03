@@ -82,7 +82,7 @@ services:
     entrypoint: sh -c "corepack enable yarn && corepack prepare yarn@${YARN_VERSION:-stable} --activate && exec \"$@\"" --
     command: node
   ollama:
-    image: docker.io/ollama/ollama:0.34.4@sha256:8262851b2846b87c649eddf3e76beb270c52f4d1bc94559f47efde16b0841551
+    image: docker.io/ollama/ollama:0.35.1@sha256:292ee7945dfc3d5840a181f3ab86fedb1e66703e02c8af98b50f4da56b7e278c
     pull_policy: always
     restart: unless-stopped
     user: "1000:1000"
