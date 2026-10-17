@@ -16,7 +16,7 @@ services:
       - 2222:2222
     restart: unless-stopped
   nix:
-    image: docker.io/nixos/nix:2.35.2@sha256:7a007c766426c1877758ddc5cb87a965ac131fc78c582ce0083d922d51ae945c
+    image: docker.io/nixos/nix:2.35.3@sha256:ff480dbb23511aa1c10710aa068ceea5b93fed9bfce5f5379f3a6b07282cbc7b
     pull_policy: always
     volumes:
       - ${NIX_CONFIG_PATH:-.}:/config:Z
@@ -60,7 +60,7 @@ services:
     entrypoint: sh -c "npm install -g corepack && corepack enable yarn && corepack prepare yarn@${YARN_VERSION:-stable} --activate && exec \"$@\"" --
     command: node
   node-24:
-    image: docker.io/library/node:24.21.0-alpine3.24@sha256:be80f76cf40ec8e42b9bec49f60a55e0660f30af58d3e5a25530785b30ea67e2
+    image: docker.io/library/node:24.22.0-alpine3.24@sha256:44fce696f38ba8c987c4db89954051000bbd05ffd8d8659ba15ed4a8602e937f
     pull_policy: always
     network_mode: host
     working_dir: /project
@@ -82,7 +82,7 @@ services:
     entrypoint: sh -c "corepack enable yarn && corepack prepare yarn@${YARN_VERSION:-stable} --activate && exec \"$@\"" --
     command: node
   ollama:
-    image: docker.io/ollama/ollama:0.40.3@sha256:adca95a12c2b386a8f9a995e7fa0600e187e3323b5e5522f5a6c3b1ec73eff99
+    image: docker.io/ollama/ollama:0.40.6@sha256:265409e1d931028a8f7d5a32bcbafddd7bffbc6cc629d77efe9560adf692a5e7
     pull_policy: always
     restart: unless-stopped
     user: "1000:1000"
@@ -92,7 +92,7 @@ services:
     ports:
       - 11434:11434
   open-webui:
-    image: ghcr.io/open-webui/open-webui:v0.12.0@sha256:1565038903151ced924b5a3226f73f40f16963df4b910441f6391f10144afdaa
+    image: ghcr.io/open-webui/open-webui:v0.12.3@sha256:a537bbe1e6b428820f52ed4a029d7fff97062e24d5cf32c365fba36fd0542def
     pull_policy: always
     restart: unless-stopped
     environment:
