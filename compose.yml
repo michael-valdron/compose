@@ -118,3 +118,21 @@ services:
     volumes:
       - ${PWD}:/apps:Z
       - ${HOME}/.ssh:/root/.ssh:ro
+  fj:
+    image: codeberg.org/forgejo-contrib/forgejo-cli:0.7.0@sha256:fb3021ff1bb5286808ebf4449118ed24979459000bf2092882cd3ba1b99811e6
+    pull_policy: always
+    network_mode: host
+    working_dir: /work
+    volumes:
+      - ${PWD}:/work:Z
+      - ${HOME}/.config/forgejo-cli:/root/.config/forgejo-cli:Z
+    command: fj
+  tea:
+    image: docker.io/gitea/tea:0.16.0@sha256:af50a2060ce4d8fd76b7ebe75a3d6db4bb0c615c5bc8f2bdfd8ea83207c4752d
+    pull_policy: always
+    network_mode: host
+    working_dir: /work
+    volumes:
+      - ${PWD}:/work:Z
+      - ${HOME}/.config/tea:/root/.config/tea:Z
+    command: tea
